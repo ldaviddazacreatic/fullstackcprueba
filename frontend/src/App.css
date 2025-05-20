@@ -1,0 +1,489 @@
+/* App.css - Versión Mejorada con Botones Llamativos */
+
+:root {
+  /* Colores base */
+  --primary-color: #282c34;
+  --secondary-color: #61dafb;
+  --success-color: #4CAF50;
+  --danger-color: #f44336;
+  --info-color: #2196F3;
+  --light-bg: #f8f9fa;
+  --white: #ffffff;
+  --text-dark: #333333;
+  --text-light: #f8f9fa;
+  
+  /* Bordes y sombras */
+  --border-radius: 8px;
+  --border-radius-btn: 6px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  /* Transiciones */
+  --transition: all 0.3s ease;
+  --transition-btn: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  /* Variables específicas para botones */
+  --btn-primary: #4CAF50;
+  --btn-primary-hover: #3e8e41;
+  --btn-secondary: #f0f0f0;
+  --btn-secondary-hover: #e0e0e0;
+  --btn-edit: #2196F3;
+  --btn-edit-hover: #0b7dda;
+  --btn-delete: #f44336;
+  --btn-delete-hover: #d32f2f;
+  --btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --btn-shadow-hover: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Base Styles */
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Header Styles */
+.App-header {
+  background-color: var(--primary-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+  color: var(--white);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+}
+
+.App-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.App-link:hover {
+  text-decoration: underline;
+  color: #4fa8d3;
+}
+
+/* Navigation */
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.app-nav button {
+  padding: 12px 24px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: var(--border-radius-btn);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition-btn);
+  box-shadow: var(--btn-shadow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-nav button:hover {
+  background-color: #4fa8d3;
+  transform: translateY(-2px);
+  box-shadow: var(--btn-shadow-hover);
+}
+
+.app-nav button.active {
+  background-color: var(--success-color);
+  color: var(--white);
+  background-image: linear-gradient(to bottom right, var(--success-color), #2E7D32);
+}
+
+/* Section Layout */
+.seccion {
+  background-color: var(--light-bg);
+  padding: 25px;
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+  box-shadow: var(--box-shadow);
+}
+
+.formulario-lista {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* Form Styles */
+.form-container {
+  background: var(--white);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-btn);
+  font-size: 16px;
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(97, 218, 251, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* ==================== */
+/* ESTILOS MEJORADOS PARA BOTONES */
+/* ==================== */
+
+/* Base Button Styles */
+.btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-btn);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition-btn);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  box-shadow: var(--btn-shadow);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: var(--transition-btn);
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Primary Button (Guardar/Confirmar) */
+.btn-primary {
+  background-color: var(--btn-primary);
+  color: var(--white);
+  background-image: linear-gradient(to bottom right, 
+    var(--btn-primary), 
+    #43A047);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  box-shadow: var(--btn-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Secondary Button (Cancelar/Volver) */
+.btn-secondary {
+  background-color: var(--btn-secondary);
+  color: var(--text-dark);
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+  box-shadow: var(--btn-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Edit Button */
+.btn-edit {
+  background-color: var(--btn-edit);
+  color: var(--white);
+  background-image: linear-gradient(to bottom right, 
+    var(--btn-edit), 
+    #1976D2);
+}
+
+.btn-edit:hover {
+  background-color: var(--btn-edit-hover);
+  box-shadow: var(--btn-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: var(--btn-delete);
+  color: var(--white);
+  background-image: linear-gradient(to bottom right, 
+    var(--btn-delete), 
+    #D32F2F);
+}
+
+.btn-delete:hover {
+  background-color: var(--btn-delete-hover);
+  box-shadow: var(--btn-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Button with Icon */
+.btn-icon {
+  padding: 12px 20px 12px 16px;
+}
+
+.btn-icon i {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+/* Special Action Button */
+.btn-action {
+  background-image: linear-gradient(45deg, 
+    var(--btn-primary) 0%, 
+    #2E7D32 50%, 
+    var(--btn-primary) 100%);
+  background-size: 200% auto;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Action Button */
+.btn-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Button States */
+.btn:disabled {
+  background: #cccccc !important;
+  background-image: none !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== */
+/* FIN ESTILOS DE BOTONES */
+/* ==================== */
+
+/* List/Table Styles */
+.list-container {
+  background: var(--white);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.responsive-table {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--light-bg);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+tr:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.actions button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* Status Messages */
+.alert {
+  padding: 15px;
+  text-align: center;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.alert-loading {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.alert-error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Card Styles */
+.patient-card {
+  background: var(--white);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patient-info {
+  flex-grow: 1;
+}
+
+.patient-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .formulario-lista {
+    grid-template-columns: 1fr;
+  }
+  
+  .app-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .app-nav button {
+    width: 100%;
+  }
+  
+  .patient-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .patient-actions {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.fade-in { animation: fadeIn 0.5s ease-in; }
+
+/* Medical Logo */
+.medical-logo {
+  height: 80px;
+  margin-bottom: 20px;
+  animation: App-logo-spin infinite 20s linear;
+}
