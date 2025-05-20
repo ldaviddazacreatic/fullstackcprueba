@@ -4,7 +4,10 @@ import axios from 'axios';
 const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, setIsLoading, setError }) => {
   const [consulta, setConsulta] = useState({
     fecha: '',
+    hora: '',
     motivo: '',
+    diagnostico: '',
+    tratamiento: '',
     pacienteId: '',
     medicoId: ''
   });
@@ -12,7 +15,6 @@ const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, set
   const [pacientes, setPacientes] = useState([]);
   const [medicos, setMedicos] = useState([]);
 
-  // Load patients and doctors
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,17 +37,27 @@ const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, set
     fetchData();
   }, [setIsLoading, setError]);
 
-  // Load data for editing
   useEffect(() => {
     if (consultaToEdit) {
       setConsulta({
         fecha: consultaToEdit.fecha,
+        hora: consultaToEdit.hora || '',
         motivo: consultaToEdit.motivo,
+        diagnostico: consultaToEdit.diagnostico || '',
+        tratamiento: consultaToEdit.tratamiento || '',
         pacienteId: consultaToEdit.paciente?.id || '',
         medicoId: consultaToEdit.medico?.id || ''
       });
     } else {
-      setConsulta({ fecha: '', motivo: '', pacienteId: '', medicoId: '' });
+      setConsulta({
+        fecha: '',
+        hora: '',
+        motivo: '',
+        diagnostico: '',
+        tratamiento: '',
+        pacienteId: '',
+        medicoId: ''
+      });
     }
   }, [consultaToEdit]);
 
@@ -58,27 +70,35 @@ const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, set
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const consultaData = {
         fecha: consulta.fecha,
+        hora: consulta.hora,
         motivo: consulta.motivo,
+        diagnostico: consulta.diagnostico,
+        tratamiento: consulta.tratamiento,
         paciente: { id: consulta.pacienteId },
         medico: { id: consulta.medicoId }
       };
 
       if (consultaToEdit) {
-        // Update existing consultation
         await axios.put(`http://localhost:8080/consultas/${consultaToEdit.id}`, consultaData);
         alert('Consulta actualizada correctamente');
       } else {
-        // Create new consultation
         await axios.post('http://localhost:8080/consultas', consultaData);
         alert('Consulta creada correctamente');
       }
-      
-      // Reset form and trigger update
-      setConsulta({ fecha: '', motivo: '', pacienteId: '', medicoId: '' });
+
+      setConsulta({
+        fecha: '',
+        hora: '',
+        motivo: '',
+        diagnostico: '',
+        tratamiento: '',
+        pacienteId: '',
+        medicoId: ''
+      });
       setConsultaToEdit(null);
       onConsultaCreada();
     } catch (error) {
@@ -90,7 +110,15 @@ const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, set
   };
 
   const handleCancel = () => {
-    setConsulta({ fecha: '', motivo: '', pacienteId: '', medicoId: '' });
+    setConsulta({
+      fecha: '',
+      hora: '',
+      motivo: '',
+      diagnostico: '',
+      tratamiento: '',
+      pacienteId: '',
+      medicoId: ''
+    });
     setConsultaToEdit(null);
     setError(null);
   };
@@ -101,57 +129,45 @@ const ConsultaForm = ({ onConsultaCreada, consultaToEdit, setConsultaToEdit, set
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Fecha:</label>
-          <input
-            type="date"
-            name="fecha"
-            value={consulta.fecha}
-            onChange={handleChange}
-            required
-          />
+          <input type="date" name="fecha" value={consulta.fecha} onChange={handleChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Hora:</label>
+          <input type="time" name="hora" value={consulta.hora} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label>Motivo:</label>
-          <input
-            type="text"
-            name="motivo"
-            placeholder="Ej: Gripa"
-            value={consulta.motivo}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="motivo" value={consulta.motivo} onChange={handleChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Diagnóstico:</label>
+          <textarea name="diagnostico" value={consulta.diagnostico} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Tratamiento:</label>
+          <textarea name="tratamiento" value={consulta.tratamiento} onChange={handleChange} />
         </div>
 
         <div className="form-group">
           <label>Paciente:</label>
-          <select
-            name="pacienteId"
-            value={consulta.pacienteId}
-            onChange={handleChange}
-            required
-          >
+          <select name="pacienteId" value={consulta.pacienteId} onChange={handleChange} required>
             <option value="">Seleccione un paciente</option>
-            {pacientes.map(paciente => (
-              <option key={paciente.id} value={paciente.id}>
-                {paciente.nombre}
-              </option>
+            {pacientes.map(p => (
+              <option key={p.id} value={p.id}>{p.nombre}</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
           <label>Médico:</label>
-          <select
-            name="medicoId"
-            value={consulta.medicoId}
-            onChange={handleChange}
-            required
-          >
+          <select name="medicoId" value={consulta.medicoId} onChange={handleChange} required>
             <option value="">Seleccione un médico</option>
-            {medicos.map(medico => (
-              <option key={medico.id} value={medico.id}>
-                {medico.nombre} ({medico.especialidad})
-              </option>
+            {medicos.map(m => (
+              <option key={m.id} value={m.id}>{m.nombre} ({m.especialidad})</option>
             ))}
           </select>
         </div>
